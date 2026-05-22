@@ -130,13 +130,27 @@ git add .
 git commit -m "Your message"
 ```
 
-### Connect a new remote (GitHub, Azure DevOps, etc.)
+### Publish to a new GitHub account (recommended)
 
-After creating an empty repository on your host:
+1. Create your account at [github.com/signup](https://github.com/signup) (skip if you already have the new account).
+2. In a terminal at the lab root, run:
 
 ```powershell
-git branch -M main
-git remote add origin https://github.com/YOUR_ORG/autonomous-agents-lab.git
+.\scripts\setup-github.ps1
+```
+
+This signs you in via browser (`gh auth login`), creates `autonomous-agents-lab` on that account, and pushes `main`.
+
+Options:
+
+```powershell
+.\scripts\setup-github.ps1 -RepoName my-agents-lab -Visibility public
+```
+
+### Manual remote (without GitHub CLI)
+
+```powershell
+git remote add origin https://github.com/YOUR_USERNAME/autonomous-agents-lab.git
 git push -u origin main
 ```
 
