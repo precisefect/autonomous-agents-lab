@@ -22,12 +22,14 @@ if (-not $Gh) {
     throw "GitHub CLI (gh) not found. Install: winget install GitHub.cli"
 }
 
-Write-Host "=== Step 1: Sign in to your NEW GitHub account ===" -ForegroundColor Cyan
-Write-Host "A browser window will open. Log in with the account where you want this repo."
+Write-Host "=== Step 1: Sign in to your GitHub account ===" -ForegroundColor Cyan
+Write-Host "Use the account that OWNS the target repo (e.g. precisefect)."
+Write-Host "If you see 'Permission denied' to another username, run: gh auth logout"
 & $Gh auth status 2>$null
 if ($LASTEXITCODE -ne 0) {
     & $Gh auth login -h github.com -p https -w
 }
+& $Gh auth setup-git
 
 $status = & $Gh api user --jq .login 2>$null
 if (-not $status) {
